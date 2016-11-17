@@ -165,6 +165,9 @@
       <DependentUpon>MallKioskPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MallKioskDemoConfig\MallKioskDemoSettings.cs" />
+    <Compile Include="Views\PersonGroupIdentityPage.xaml.cs">
+      <DependentUpon>PersonGroupIdentityPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\RealTimeDemo.xaml.cs">
       <DependentUpon>RealTimeDemo.xaml</DependentUpon>
     </Compile>
@@ -215,6 +218,7 @@
     <Content Include="Assets\male.png" />
     <Content Include="Assets\Mall.png" />
     <Content Include="Assets\oxford-face.png" />
+    <Content Include="Assets\person-group.png" />
     <Content Include="Assets\RealTime.PNG" />
     <Content Include="Assets\smalltile-sdk.png" />
     <Content Include="Assets\splash-sdk.png" />
@@ -309,6 +313,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\PersonGroupIdentityPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\RealTimeDemo.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -359,6 +367,9 @@
       <Project>{5d9320af-a9e4-48e3-89bc-9f7f0954b298}</Project>
       <Name>ServiceHelpers</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Themes\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -1,0 +1,105 @@
+﻿<Page
+    x:Class="IntelligentKioskSample.Views.PersonGroupIdentityPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:IntelligentKioskSample.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ctl="using:IntelligentKioskSample.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid x:Name="MainGrid"  Background="#f89821">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="0.05*" />
+            <RowDefinition/>
+            <RowDefinition Height="0.1*"/>
+        </Grid.RowDefinitions>
+
+        <Grid HorizontalAlignment="Left" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="dummy" Width="{Binding FnameBlockWidth}" />
+            </Grid.ColumnDefinitions>
+        </Grid>
+        <CommandBar x:Name="commandBar" VerticalAlignment="Top" HorizontalContentAlignment="Stretch">
+            <AppBarButton x:Name="AddFacesAppBarButton" Icon="Add" Label="Add Faces">
+                <AppBarButton.Flyout>
+                    <Flyout x:Name="trainingImageCollectorFlyout">
+                        <ctl:ImageSearchUserControl x:Name="bingSearchControl" DetectFacesOnLoad="False" OnImageSearchCompleted="OnImageSearchCompleted" OnImageSearchCanceled="OnImageSearchCanceled" OnImageSearchLocalFilesProvided="OnImageSearchLocalFilesProvided" />
+                    </Flyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+            <AppBarButton Icon="Delete" Label="Delete Person" Click="OnDeletePersonClicked"/>
+            <CommandBar.Content>
+                <ctl:PageHeader>
+                    <ctl:PageHeader.HeaderContent>
+                        <TextBlock Text="{Binding HeaderText}" Style="{ThemeResource PageTitleTextBlockStyle}" TextWrapping="NoWrap"/>
+                    </ctl:PageHeader.HeaderContent>
+                </ctl:PageHeader>
+            </CommandBar.Content>
+        </CommandBar>
+
+        <StackPanel Grid.Row="1">
+            <TextBlock Text="Image Identity" Foreground="White" HorizontalAlignment="Center" FontFamily="Segoe UI Light" Style="{StaticResource HeaderTextBlockStyle}"/>
+            <TextBlock Text="Image Identity via face tracking and motion detection" HorizontalAlignment="Center" FontFamily="Segoe UI Light"  Style="{StaticResource SubtitleTextBlockStyle}" FontStyle="Italic"/>
+        </StackPanel>
+
+        <Grid Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.05*"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="0.05*"/>
+            </Grid.ColumnDefinitions>
+
+            <GridView x:Name="cameraHostGrid" Grid.Column="1"  HorizontalAlignment="Center" VerticalAlignment="Center">
+                <GridView.ItemTemplate>
+                    <DataTemplate>
+                        <ctl:ImageWithFaceBorderUserControl 
+                            DataContext="{Binding}" 
+                            BalloonBackground="#ECCF11" 
+                            BalloonForeground="#D86C2A" 
+                            FlowDirection="RightToLeft" 
+                            x:Name="imageFromCameraWithFaces" 
+                            DetectFacesOnLoad="True" 
+                            DetectFaceAttributes="True" 
+                            ShowMultipleFaces="True" 
+                            PerformRecognition="True" 
+                            ShowRecognitionResults="True" 
+                            ShowDialogOnApiErrors="True" Width="{Binding ActualWidth,ElementName=dummy}"/>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+            </GridView>
+
+            <Grid Grid.Column="1" x:Name="cameraGuideHost">
+                <Grid Name="cameraGuideBallon" VerticalAlignment="Top" HorizontalAlignment="Right" Opacity="0.8" Margin="0,0,-300,0" Width="300">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Polyline StrokeThickness="0" Grid.Row="0" Margin="10,0,0,0"
+                               VerticalAlignment="Top"
+                               HorizontalAlignment="Left"
+                               Points="0,0,0,10,12,10" Fill="#ECCF11" />
+
+                    <Border Grid.Row="1" Background="#ECCF11" Padding="10,5,10,5">
+                        <TextBlock x:Name="cameraGuideText" Foreground="#D86C2A" Text="Input yout photos from local disk or internet!"  Style="{StaticResource SubtitleTextBlockStyle}" FontStyle="Italic" />
+                    </Border>
+                </Grid>
+
+                <Grid Name="cameraGuideCountdownHost">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.05*"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="0.2*"/>
+                    </Grid.RowDefinitions>
+                    <Viewbox Grid.Row="1">
+                        <TextBlock Name="countDownTextBlock" Foreground="#ECCF11" FontWeight="Bold" Opacity="0.9"  />
+                    </Viewbox>
+                </Grid>
+            </Grid>
+
+        </Grid>
+
+    </Grid>
+</Page>
